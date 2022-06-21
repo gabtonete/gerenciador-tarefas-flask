@@ -27,7 +27,6 @@ def token_required(f):
             user_id = JWTService.decodificar_token(token)
 
             usuario_atual = UsuarioBaseDto("Gabriel Tonete", config.LOGIN_TESTE)
-
         except jwt.ExpiredSignatureError:
             return Response(
                 json.dumps(ErroDto("Token expirado", 401).__dict__),
@@ -44,8 +43,9 @@ def token_required(f):
 
         except Exception:
             return Response(
-                json.dumps(ErroDto("Não foi possível efetuar o login, tente novamente mais tarde", 500).__dict__),
+                json.dumps(ErroDto("Não foi possível efetuar a requisição, tente novamente mais tarde", 500).__dict__),
                 status=500,
-                mimetype='application/json')
+                mimetype='application/json'
+            )
 
-    return decorated()
+    return decorated
