@@ -1,7 +1,7 @@
+import json
+
 from flask import Blueprint, Response, request
 from flask_restx import Namespace, Resource, fields
-
-import json
 
 import config
 from dtos.ErroDto import ErroDto
@@ -28,13 +28,25 @@ class Login(Resource):
     def post(self):
         try:
             body = request.get_json()
-            print(body)
 
-            if not body or "login" not in body or "senha" not in body:
+            erros = []
+
+            if not body:
                 return Response(
-                    json.dumps(ErroDto('Parâmetros de entrada inválidos', 400).__dict__),
+                    json.dumps(ErroDto("Body não pode ser vazio", 400).__dict__),
                     status=400,
-                    mimetype='application/json')
+                    mimetype='application/json'
+                )
+
+            if "login" not in body or "senha" not in body:
+                erros.append("Parâmetros inválidos")
+
+            if erros:
+                return Response(
+                    json.dumps(ErroDto(erros, 400).__dict__),
+                    status=400,
+                    mimetype='application/json'
+                )
 
             if body["login"] == config.LOGIN_TESTE and body["senha"] == config.SENHA_TESTE:
                 id_usuario = 1
