@@ -17,7 +17,7 @@ api = Namespace('Usuário', description="Rota de usuário")
 class UsuarioController(Resource):
 
     @Decorators.token_required
-    def get(self):
+    def get(usuario):
         try:
             return Response(
                 json.dumps(UsuarioBaseDto("Gabriel Tonete", config.LOGIN_TESTE).__dict__),

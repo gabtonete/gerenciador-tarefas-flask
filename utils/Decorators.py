@@ -48,4 +48,6 @@ def token_required(f):
                 mimetype='application/json'
             )
 
+        return f(usuario_atual)
+
     return decorated
