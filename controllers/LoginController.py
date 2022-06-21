@@ -18,7 +18,7 @@ login_fields = api.model('LoginDTO', {
 class Login(Resource):
     @api.doc(responses={200: 'Login realizado com sucesso'})
     @api.doc(responses={400: 'Parâmetros de entrada inválidos'})
-    @api.doc(responses={500: 'Não foi possível efetuar o login, tente novamente maist arde'})
+    @api.doc(responses={500: 'Não foi possível efetuar o login, tente novamente mais tarde'})
     @api.response(200, 'Success')
     @api.expect(login_fields)
     def post(self):
