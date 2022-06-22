@@ -10,8 +10,8 @@ class Usuario(Base):
     id = Column(Integer, primary_key=True, index=True)
     nome = Column(String(100))
     email = Column(String(100))
-    Senha = Column(String(200))
-    
+    senha = Column(String(200))
+
 
 if not inspect(engine).has_table('usuario', schema=config.MYSQL_DATABASE):
     Usuario.__table__.create(engine)

@@ -3,10 +3,10 @@ import json
 from flask import Blueprint, Response, request
 from flask_restx import Namespace, Resource, fields
 
-import config
 from dtos.ErroDto import ErroDto
 from dtos.UsuarioDto import UsuarioLoginDto
 from services import JWTService
+from services.UsuarioService import UsuarioService
 
 login_controller = Blueprint('login_controller', __name__)
 
@@ -48,11 +48,13 @@ class Login(Resource):
                     mimetype='application/json'
                 )
 
-            if body["login"] == config.LOGIN_TESTE and body["senha"] == config.SENHA_TESTE:
-                id_usuario = 1
-                token = JWTService.gerar_token(id_usuario)
+            usuario_encontrado = UsuarioService().login(body["login"], body["senha"])
+
+            if usuario_encontrado:
+                token = JWTService.gerar_token(usuario_encontrado.id)
+
                 return Response(
-                    json.dumps(UsuarioLoginDto("Gabriel Tonete", config.LOGIN_TESTE, token).__dict__),
+                    json.dumps(UsuarioLoginDto(usuario_encontrado.nome, usuario_encontrado.email, token).__dict__),
                     status=200,
                     mimetype='application/json'
                 )

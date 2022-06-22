@@ -5,8 +5,9 @@ class UsuarioBaseDto:
 
 
 class UsuarioCreateDto(UsuarioBaseDto):
-    def __init__(self, nome, email, senha):
+    def __init__(self, id, nome, email, senha):
         super().__init__(nome, email)
+        self.id = id
         self.senha = senha
 
 
