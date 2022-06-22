@@ -1,5 +1,6 @@
 import sqlalchemy as db
 # specify database configurations
+from sqlalchemy import MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -19,6 +20,8 @@ engine.execute(f'USE {config.MYSQL_DATABASE}')
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
+
+metadata = MetaData()
 
 # connection = engine.connect()
 # # pull metadata of a table

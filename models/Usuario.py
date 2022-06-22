@@ -1,11 +1,12 @@
 from sqlalchemy import Column, Integer, String, inspect
 
 import config
-from database.database import Base, engine
+from database.database import Base, engine, metadata
 
 
 class Usuario(Base):
     __tablename__ = 'usuario'
+    metadata
 
     id = Column(Integer, primary_key=True, index=True)
     nome = Column(String(100))
